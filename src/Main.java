@@ -1,5 +1,6 @@
+import frontend.Frontend;
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Frontend f = new Frontend();
     }
 }
