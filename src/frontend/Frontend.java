@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.BorderLayout;
 
 import backend.Backend;
@@ -23,11 +24,17 @@ public class Frontend {
         topFrame.setVisible(true);
         topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topFrame.getContentPane().setBackground(Color.WHITE);
-        JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
-        JTextField text = new JTextField(16);
+        JPanel panel3 = new JPanel();
+
+        JLabel title = new JLabel("Enter Text:");
+
+        JLabel stylelabel = new JLabel("Choose Style:");
+        JTextField style = new JTextField("Fiction,Magazine,News...");
+
+        JTextField text = new JTextField();
+        text.setPreferredSize( new Dimension( 200, 24 ) );
         JButton btn = new JButton("Submit");
-        JLabel title = new JLabel("ENTER TEXT");
         //btn.setLocation(500, 100);
         btn.addActionListener(new ActionListener() {
             @Override
@@ -39,11 +46,16 @@ public class Frontend {
                 text.setText("");
             }
         });
-        panel1.add(title);
+        panel3.add(stylelabel);
+        panel3.add(style);
+
+        panel2.add(title);
         panel2.add(text);
         panel2.add(btn);
+        
         JPanel mainpanel=new JPanel(new BorderLayout());
-        mainpanel.add(panel1,BorderLayout.NORTH);
+        //mainpanel.add(panel1,BorderLayout.NORTH);
+        mainpanel.add(panel3,BorderLayout.PAGE_START);
         mainpanel.add(panel2,BorderLayout.CENTER);
         topFrame.add(mainpanel);
         topFrame.setSize(800, 400);
