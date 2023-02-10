@@ -3,6 +3,7 @@ package frontend;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -31,7 +32,8 @@ public class Frontend {
         JLabel title = new JLabel("Enter Text:");
 
         JLabel stylelabel = new JLabel("Choose Style:");
-        JTextField style = new JTextField("Fiction,Magazine,News...");
+        String[] choices = { "acad","blog", "fic","mag","news","spok","tvm","web"};
+        JComboBox<String> style = new JComboBox<String>(choices);
 
         JLabel output = new JLabel("Output:");
 
@@ -42,7 +44,12 @@ public class Frontend {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                b.addToData(text.getText());
+                try {
+                    b.getFiles(style.getSelectedItem().toString());
+                } catch (FileNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    output.setText("Error. Try Again.");
+                }
                 System.out.println(text.getText());
                 System.out.println(b.getText(text.getText()));
                 text.setText("");

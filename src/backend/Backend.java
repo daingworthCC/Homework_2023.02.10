@@ -1,7 +1,10 @@
 package backend;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Backend {
     /**
@@ -12,7 +15,20 @@ public class Backend {
      */
     HashMap<String, HashMap<Integer, HashMap<String, Integer>>> data = new HashMap<>();
 
-    private String inputtext;
+    public void getFiles(String folder) throws FileNotFoundException{
+        String directory = "src/backend/WordCounterData/"+folder;
+        File[] searchfiles = new File(directory).listFiles();
+        for (File file : searchfiles) {
+            if (file.isFile()) {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine())
+                {
+                    addToData(sc.nextLine());
+                }
+                
+            }
+        }
+    }
 
     public void addToData(String input) {
         String words[] = input.replaceAll("\\p{Punct}", "").toLowerCase().split(" ");
@@ -61,10 +77,11 @@ public class Backend {
         return output;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Backend be = new Backend();
-        be.addToData("My name is ronan");
+        be.getFiles("blog");
+        //be.addToData("My name is ronan");
         System.out.println(be.data);
-        System.out.println(be.getText("name"));
+        //System.out.println(be.getText("name"));
     }
 }
