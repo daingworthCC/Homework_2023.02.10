@@ -1,7 +1,13 @@
 package backend;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.Scanner;
 
 public class Backend {
     /**
@@ -21,6 +27,21 @@ public class Backend {
     HashMap<Integer, HashMap<String, HashMap<String, Integer>>> data2 = new HashMap<>();
 
     private String inputtext;
+
+    public void getFiles(String folder) throws FileNotFoundException {
+        String directory = "src/backend/WordCounterData/"+folder;
+        File[] searchfiles = new File(directory).listFiles();
+        for (File file : searchfiles) {
+            if (file.isFile()) {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNextLine())
+                {
+                    addToData(sc.nextLine());
+                }
+
+            }
+        }
+    }
 
     public void addToData2(String input) {
         String words[] = toNormalWordArray(input);
@@ -123,12 +144,11 @@ public class Backend {
         return input.replaceAll("\\p{Punct}", "").toLowerCase().split(" ");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Backend be = new Backend();
-        be.addToData2("I came I saw I came I saw I came I conquered");
-        System.out.println(be.getText2("I came I"));
-        /*be.addToData("My name is ronan");
+        be.getFiles("blog");
+        //be.addToData("My name is ronan");
         System.out.println(be.data);
-        System.out.println(be.getText("name"));*/
+        //System.out.println(be.getText("name"));
     }
 }
