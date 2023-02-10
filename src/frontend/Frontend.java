@@ -44,10 +44,11 @@ public class Frontend {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(text.getText());
-                System.out.println(b.getText(text.getText()));
+                System.out.print(text.getText() + " ");
+                String release = b.getText(text.getText());
+                System.out.println(release);
                 text.setText("");
-                output.setText("Output:"+b.getText(text.getText()));
+                output.setText("Output: " + release);
             }
         });
         panel1.add(stylelabel);

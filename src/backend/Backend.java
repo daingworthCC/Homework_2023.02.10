@@ -98,7 +98,8 @@ public class Backend {
                 if (data2.get(i).get(wordsInQuestion) == null);
                 else for (Map.Entry<String, Integer> hashMap : data2.get(i).get(wordsInQuestion).entrySet()) {
                     int casesOccurrences = hashMap.getValue() * (i + 1);
-                    if(casesOccurrences > outputOccurrences) {
+                    if (output == hashMap.getKey()) outputOccurrences += casesOccurrences;
+                    else if (casesOccurrences > outputOccurrences) {
                         output = hashMap.getKey();
                         outputOccurrences = casesOccurrences;
                     }
