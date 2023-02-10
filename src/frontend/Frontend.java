@@ -24,6 +24,7 @@ public class Frontend {
         topFrame.setVisible(true);
         topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topFrame.getContentPane().setBackground(Color.WHITE);
+        JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
 
@@ -31,6 +32,8 @@ public class Frontend {
 
         JLabel stylelabel = new JLabel("Choose Style:");
         JTextField style = new JTextField("Fiction,Magazine,News...");
+
+        JLabel output = new JLabel("Output:");
 
         JTextField text = new JTextField();
         text.setPreferredSize( new Dimension( 200, 24 ) );
@@ -42,21 +45,23 @@ public class Frontend {
                 b.addToData(text.getText());
                 System.out.println(text.getText());
                 System.out.println(b.getText(text.getText()));
-                title.setText(b.getText(text.getText()));
                 text.setText("");
+                output.setText("Output:"+b.getText(text.getText()));
             }
         });
-        panel3.add(stylelabel);
-        panel3.add(style);
+        panel1.add(stylelabel);
+        panel1.add(style);
 
         panel2.add(title);
         panel2.add(text);
         panel2.add(btn);
+        panel3.add(output);
         
         JPanel mainpanel=new JPanel(new BorderLayout());
         //mainpanel.add(panel1,BorderLayout.NORTH);
-        mainpanel.add(panel3,BorderLayout.PAGE_START);
+        mainpanel.add(panel1,BorderLayout.PAGE_START);
         mainpanel.add(panel2,BorderLayout.CENTER);
+         mainpanel.add(panel3,BorderLayout.PAGE_END);
         topFrame.add(mainpanel);
         topFrame.setSize(800, 400);
 
