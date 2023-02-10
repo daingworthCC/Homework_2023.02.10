@@ -22,7 +22,7 @@ public class Backend {
 
     private String inputtext;
 
-    public void addToData(String input) {
+    public void addToData2(String input) {
         String words[] = toNormalWordArray(input);
         for (int i = 0; i < words.length; i++) {
             if (i == 0);
@@ -48,7 +48,7 @@ public class Backend {
         }
     }
 
-    public String getText(String input) {
+    public String getText2(String input) {
         String output = "";
         int outputOccurences = 0;
         int breadth = 0;
@@ -69,7 +69,7 @@ public class Backend {
         return output;
     }
 
-    public void addToData2(String input) {
+    public void addToData(String input) {
         String[] words = toNormalWordArray(input);
         for (int i = 0; i < words.length; i++) {
             if (data2.get(i) == null) data2.put(i, new HashMap<>());
@@ -87,7 +87,7 @@ public class Backend {
         }
     }
 
-    public String getText2(String input) {
+    public String getText(String input) {
         String output = "";
         String[] words = toNormalWordArray(input);
         int outputOccurrences = 0;

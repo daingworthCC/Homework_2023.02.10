@@ -44,7 +44,6 @@ public class Frontend {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                b.addToData(text.getText());
                 System.out.println(text.getText());
                 System.out.println(b.getText(text.getText()));
                 text.setText("");
