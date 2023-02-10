@@ -1,6 +1,7 @@
 package frontend;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTextFieldUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -31,6 +32,7 @@ public class Frontend {
 
         JLabel stylelabel = new JLabel("Choose Style:");
         JTextField style = new JTextField("Fiction,Magazine,News...");
+        style.setToolTipText("Fiction,Magazine,News...");
 
         JTextField text = new JTextField();
         text.setPreferredSize( new Dimension( 200, 24 ) );
