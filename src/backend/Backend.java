@@ -105,6 +105,7 @@ public class Backend {
                 }
             }
         }
+        addToData(input);
         return output;
     }
 
