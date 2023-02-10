@@ -1,0 +1,1 @@
+5086141 <h> Configure Windows Firewall to allow Firefox access to the Internet <p> Windows provides a built-in firewall, which controls how programs access the Internet. If Windows Firewall does n't permit Firefox to make connections, Firefox generates a " Server not 

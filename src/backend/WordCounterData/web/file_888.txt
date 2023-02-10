@@ -1,0 +1,1 @@
+5258741 <p> Anyone have any ideas on what can be done. I 'm guessing we need to locate the linux driver fro the card and then compile + add it to Openelec build. Not that familair with the process as I 'm a Windows 

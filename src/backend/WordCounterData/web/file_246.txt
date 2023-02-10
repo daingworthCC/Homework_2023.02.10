@@ -1,0 +1,1 @@
+5051241 <p> I 'd suggest not using document.write, since this will overwrite anything else in the page. -- Lee Taylor Oct 26 at 0:21 <p> 1 <p> @Lee Taylor : It will only overwrite the contents of the document when the document has already been closed, in this case it 's still open, so there is no problem when he 

@@ -1,0 +1,1 @@
+5057741 <p> You can put this solution on YOUR website! cos 33pi4. ------------- 32pi/4 = 8pi which is 4 revolutions. Subtract that. --&gt; cos(pi/4) = sqrt(2)/2 I did n't use a calculator, I know that one. It 's 1/8 of a revolution, or 45. If you plot it on a unit circle, x and y are equal, 
