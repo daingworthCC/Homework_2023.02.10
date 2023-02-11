@@ -33,16 +33,12 @@ public class Backend {
 
     public void getFiles(String folder) throws FileNotFoundException {
         String directory = "./src/WordCounterData/" + folder + "/";
-        File[] searchfiles = new File(directory).listFiles();
-        for (File file : searchfiles) {
-            if (file.isFile()) {
-                Scanner sc = new Scanner(file);
-                while (sc.hasNextLine())
-                {
-                    String temp = sc.nextLine();
-                    addToData(temp, 2);
-                    System.out.print("|");
-                }
+        for(int i = 1; i <= 5; i++) {
+            File file = new File(directory+"file_"+i+".txt");
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String temp = sc.nextLine();
+                addToData(temp, 2);
             }
         }
     }
@@ -110,14 +106,6 @@ public class Backend {
                 data2.get(i).get(wordsInRange).put(words[j + 1], data2.get(i).get(wordsInRange).get(words[j + 1]) + 1);
             }
         }
-        for (int i = 0; i < words.length; i++) {
-            for (int j = words.length - 2; j >= i; j--) {
-                String wordsInRange = wordsBtwnPoints(words,j - i, j);
-                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == 1) {
-                    data2.get(i).get(wordsInRange).remove(words[j + 1]);
-                }
-            }
-        }
     }
 
     public void addToData(String input, int limit) {
@@ -135,40 +123,6 @@ public class Backend {
                     data2.get(i).get(wordsInRange).put(words[j + 1], 0);
                 }
                 data2.get(i).get(wordsInRange).put(words[j + 1], data2.get(i).get(wordsInRange).get(words[j + 1]) + 1);
-            }
-        }
-        //for (int i = 0; i < words.length; i++) {
-        for (int i = 0; i < words.length; i++) {
-            if(i >= limit) break;
-            if (data2.get(i) == null)
-                data2.remove(i);
-            for (int j = words.length - 2; j >= i; j--) {
-                String wordsInRange = wordsBtwnPoints(words,j - i, j);
-                if (data2.get(i).get(wordsInRange) == null) {
-                    data2.get(i).remove(wordsInRange); break;
-                }
-                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == null) {
-                    data2.get(i).get(wordsInRange).remove(words[j + 1]); break;
-                }
-                if (data2.get(i).get(wordsInRange).get(words[j + 1]) <= 50) {
-                    boolean stop = false;
-                    if (data2.get(i).get(wordsInRange).size() == 1) stop = true;
-                    data2.get(i).get(wordsInRange).remove(words[j + 1]);
-                    if (stop) {
-                        data2.get(i).remove(wordsInRange);
-                        break;
-                    }
-                    /*for (Map.Entry<String, HashMap<String, Integer>> hashMap : data2.get(i).entrySet()) {
-                        if(hashMap.getKey() == "" || hashMap.getKey() == " ")
-                            data2.get(i).get(wordsInRange).remove(hashMap.getKey());
-                    }*/
-                }
-                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == null) {
-                    data2.get(i).remove(wordsInRange); break;
-                }
-                if (data2.get(i).get(wordsInRange) == null) {
-                    data2.get(i).remove(wordsInRange); break;
-                }
             }
         }
     }
