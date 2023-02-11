@@ -2,11 +2,12 @@ package backend;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Scanner;
 
 public class Backend {
@@ -25,20 +26,23 @@ public class Backend {
      * Level 4 = number of times that occurrence has happened
      */
     HashMap<Integer, HashMap<String, HashMap<String, Integer>>> data2 = new HashMap<>();
+    HashMap emptyHashMap = new HashMap<>(){};
+    ArrayList emptyArrayList = new ArrayList(){};
 
     private String inputtext;
 
     public void getFiles(String folder) throws FileNotFoundException {
-        String directory = "src/backend/WordCounterData/"+folder;
+        String directory = "./src/WordCounterData/" + folder + "/";
         File[] searchfiles = new File(directory).listFiles();
         for (File file : searchfiles) {
             if (file.isFile()) {
                 Scanner sc = new Scanner(file);
                 while (sc.hasNextLine())
                 {
-                    addToData(sc.nextLine());
+                    String temp = sc.nextLine();
+                    addToData(temp, 2);
+                    System.out.print("|");
                 }
-
             }
         }
     }
@@ -106,6 +110,67 @@ public class Backend {
                 data2.get(i).get(wordsInRange).put(words[j + 1], data2.get(i).get(wordsInRange).get(words[j + 1]) + 1);
             }
         }
+        for (int i = 0; i < words.length; i++) {
+            for (int j = words.length - 2; j >= i; j--) {
+                String wordsInRange = wordsBtwnPoints(words,j - i, j);
+                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == 1) {
+                    data2.get(i).get(wordsInRange).remove(words[j + 1]);
+                }
+            }
+        }
+    }
+
+    public void addToData(String input, int limit) {
+        String[] words = toNormalWordArray(input);
+        for (int i = 0; i < words.length; i++) {
+            if(i >= limit) break;
+            if (data2.get(i) == null) data2.put(i, new HashMap<>());
+            for (int j = words.length - 2; j >= i; j--) {
+                String wordsInRange = wordsBtwnPoints(words,j - i, j);
+                if (data2.get(i).get(wordsInRange) == null) {
+                    data2.get(i).put(wordsInRange, new HashMap<>());
+                    data2.get(i).get(wordsInRange).put(words[j + 1], 0);
+                }
+                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == null) {
+                    data2.get(i).get(wordsInRange).put(words[j + 1], 0);
+                }
+                data2.get(i).get(wordsInRange).put(words[j + 1], data2.get(i).get(wordsInRange).get(words[j + 1]) + 1);
+            }
+        }
+        //for (int i = 0; i < words.length; i++) {
+        for (int i = 0; i < words.length; i++) {
+            if(i >= limit) break;
+            if (data2.get(i) == null)
+                data2.remove(i);
+            for (int j = words.length - 2; j >= i; j--) {
+                String wordsInRange = wordsBtwnPoints(words,j - i, j);
+                if (data2.get(i).get(wordsInRange) == null) {
+                    data2.get(i).remove(wordsInRange); break;
+                }
+                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == null) {
+                    data2.get(i).get(wordsInRange).remove(words[j + 1]); break;
+                }
+                if (data2.get(i).get(wordsInRange).get(words[j + 1]) <= 50) {
+                    boolean stop = false;
+                    if (data2.get(i).get(wordsInRange).size() == 1) stop = true;
+                    data2.get(i).get(wordsInRange).remove(words[j + 1]);
+                    if (stop) {
+                        data2.get(i).remove(wordsInRange);
+                        break;
+                    }
+                    /*for (Map.Entry<String, HashMap<String, Integer>> hashMap : data2.get(i).entrySet()) {
+                        if(hashMap.getKey() == "" || hashMap.getKey() == " ")
+                            data2.get(i).get(wordsInRange).remove(hashMap.getKey());
+                    }*/
+                }
+                if (data2.get(i).get(wordsInRange).get(words[j + 1]) == null) {
+                    data2.get(i).remove(wordsInRange); break;
+                }
+                if (data2.get(i).get(wordsInRange) == null) {
+                    data2.get(i).remove(wordsInRange); break;
+                }
+            }
+        }
     }
 
     public String getText(String input) {
@@ -141,14 +206,21 @@ public class Backend {
     }
 
     String[] toNormalWordArray(String input) {
-        return input.replaceAll("\\p{Punct}", "").toLowerCase().split(" ");
+        return input.replace("@ ", "").
+                replace("<p> ", "").
+                replace("<h> ", "").
+                replaceAll("\\p{Punct}", "").
+                replaceAll("   ", " ").
+                toLowerCase().split(" ");
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Backend be = new Backend();
         be.getFiles("blog");
         //be.addToData("My name is ronan");
-        System.out.println(be.data);
+        FileWriter fileWriter = new FileWriter("./src/backend/files/blog.txt");
+        fileWriter.write(be.data2.toString());
+        fileWriter.close();
         //System.out.println(be.getText("name"));
     }
 }
