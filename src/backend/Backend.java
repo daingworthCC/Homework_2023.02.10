@@ -32,6 +32,7 @@ public class Backend {
     private String inputtext;
 
     public void getFiles(String folder) throws FileNotFoundException {
+        data2 = new HashMap<>();
         String directory = "./src/WordCounterData/" + folder + "/";
         for(int i = 1; i <= 5; i++) {
             File file = new File(directory+"file_"+i+".txt");

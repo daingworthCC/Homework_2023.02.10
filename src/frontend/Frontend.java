@@ -56,7 +56,7 @@ public class Frontend {
                 System.out.println(release);
 
                 output.setText("Output:"+text.getText()+" "+release);
-                text.setText("");
+                text.setText(text.getText()+" "+release);
             }
         });
         panel1.add(stylelabel);
